@@ -1,4 +1,3 @@
-git clone git@github.com:NineMan/stepic_project.git /home/box/web
-git clone https://github.com/NineMan/stepic_project.git /home/box/web
+sudo ln -s /home/box/web/etc/nginx.conf  /etc/nginx/sites-enabled/test.conf
+sudo /etc/init.d/nginx restart
 
-bash /home/box/web/init.sh
