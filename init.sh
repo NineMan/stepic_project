@@ -1,6 +1,6 @@
 # setting for nginx
 
-#sudo rm /etc/nginx/sites-enabled/default
+sudo rm /etc/nginx/sites-enabled/default
 sudo rm /etc/nginx/sites-enabled/test.conf
 sudo ln -s /home/box/web/etc/nginx.conf  /etc/nginx/sites-enabled/test.conf
 sudo /etc/init.d/nginx restart
@@ -11,6 +11,7 @@ sudo /etc/init.d/nginx restart
 
 sudo ln -s /home/box/web/etc/gunicorn.py /etc/gunicorn.d/gunicorn.py
 
+# cd /home/box/web
 # sudo gunicorn -b 0.0.0.0:8080 gunicorn hello:application
 
 cd /home/box/web
