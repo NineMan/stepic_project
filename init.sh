@@ -21,11 +21,13 @@ sudo /etc/init.d/nginx restart
 
 
 # ----------------- Ver 3 -------------------------
-cd /home/box/web
-gunicorn --bind='0.0.0.0:8080' hello:application
+# cd /home/box/web
+# gunicorn --bind='0.0.0.0:8080' hello:application
 
 
-
+# ----------------- Ver 4 -------------------------
+sudo ln -s       /home/box/web/etc/gunicorn1.py /etc/gunicorn.d/gunicorn.py
+sudo gunicorn -c /home/box/web/etc/gunicorn1.py 
 
 # setting for mysql
 
