@@ -9,11 +9,22 @@ sudo /etc/init.d/nginx restart
 
 # settings for gunicorn
 
-sudo ln -s /home/box/web/etc/gunicorn.py /etc/gunicorn.d/gunicorn.py
 
-cd /home/box/web
+# ----------------- Ver 1 -------------------------
+# sudo ln -s       /home/box/web/etc/gunicorn.py /etc/gunicorn.d/gunicorn.py
+# cd /home/box/web
+# sudo gunicorn -c /home/box/web/etc/gunicorn.py hello:application
+
+
+# ----------------- Ver 2 -------------------------
 # sudo gunicorn -b 0.0.0.0:8080 gunicorn hello:application
-sudo gunicorn -c /home/box/web/etc/gunicorn.py hello:application
+
+
+# ----------------- Ver 3 -------------------------
+cd /home/box/web
+gunicorn --bind='0.0.0.0:8080' hello:application
+
+
 
 
 # setting for mysql
