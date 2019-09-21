@@ -2,5 +2,5 @@
 from django.http import HttpResponse
 
 def test(request, *args, **kwargs):
-    retutn HttpResponse('OK')
+    return HttpResponse('OK')
 
