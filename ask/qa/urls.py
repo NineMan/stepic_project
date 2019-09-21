@@ -1,16 +1,15 @@
-# from django.contrib import admin
-# from django.urls import path
-from django.conf.urls import patterns, include, url
+from django.conf.urls import url
+from qa.views import test
 
 
-urlpatterns = patterns('qa.views',
-    url(r'^$', 'index', name='index'),
-    url(r'^login/', 'login', name='login'),
-    url(r'^signup/', 'signup', name='signup'),
-    url(r'^question/(?P<quest_id>[0-9]+)/$', 'question', name='question'),
-    url(r'^ask/', 'ask', name='ask'),
-    url(r'^answer/', 'answer', name='answer'),
-    url(r'^popular/', 'popular', name='popular'),
-    url(r'^new/', 'new', name='new'),
+urlpatterns = (
+    url(r'^$', test, name='index'),
+    url(r'^login/', test, name='login'),
+    url(r'^signup/', test, name='signup'),
+    url(r'^question/(?P<quest_id>[0-9]+)/$', test, name='question'),
+    url(r'^ask/', test, name='ask'),
+    url(r'^answer/', test, name='answer'),
+    url(r'^popular/', test, name='popular'),
+    url(r'^new/', test, name='new'),
+)
 
-]
