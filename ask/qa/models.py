@@ -1,17 +1,27 @@
 from django.db import models
+from django.contrib.auth.models import User
+
+
+class QuestionManager(models.Manager):
+    def new():
+        pass
+    def popular():
+        pass
+
 
 class Question(models.Model):
-    title = models.Charfield('name question', max_length = 100)
-    text = models.TextField('text question')
-    added_at = models.DateTmeField('date added question')
-    rating = models.IntegerField('rating of question')
-    author = models.Charfield('name author of question', max_length = 50)
-    likes = models.Integer('number of likes of question')
+    objects = QuestionManager()
+    title = models.CharField(max_length=100)
+    text = models.TextField()
+    added_at = models.DateTimeField(auto_now_add=True)
+    rating = models.IntegerField(default=0)
+    author = models.ForeignKey(User, related_name='question_author', on_delete=models.CASCADE)
+    likes  = models.ManyToManyField(User, related_name='question_likes', blank=True)
 
 
 class Answer(models.Model):
-    text = models.TextField('text answer')
-    added_at = models.DateTmeField('date added answer')
+    text = models.TextField()
+    added_at = models.DateTimeField(auto_now=True)
     question = models.ForeignKey(Question, on_delete = models.CASCADE)
-    author = models.Charfield('name author of answer', max_length = 50)
+    author = models.ForeignKey(User, related_name='answer_author', on_delete=models.CASCADE)
 

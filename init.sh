@@ -18,10 +18,17 @@ sudo gunicorn -b 0.0.0.0:8000 ask.wsgi:application
 
 # setting for mysql
 
+sudo /etc/init.d/mysql restart
+mysql -uroot -e "DROP DATABASE ASK"
+mysql -uroot -e "DROP USER sa@localhost"
+mysql -uroot -e "CREATE DATABASE ASK"
+mysql -uroot -e "CREATE USER 'sa'@'localhost' IDENTIFIED BY 'sa'"
+mysql -uroot -e "GRANT ALL PRIVILEGES ON ASK.* TO 'sa'@'localhost'"
 
-
-
-
+python3 /home/box/web/ask/manage.py makemigrations qa
+# python /home/box/web/ask/manage.py makemigrations qa
+python3 /home/box/web/ask/manage.py migrate qa
+# python /home/box/web/ask/manage.py migrate qa
 
 
 
