@@ -23,7 +23,8 @@ gunicorn -c /home/box/web/etc/qa1.py       ask.wsgi:application
 # setting for mysql
 
 # --- for local ---
-
+# for: ERROR 1698 (28000): Access denied for user 'root'@'localhost'
+# http://qaru.site/questions/161543/error-1698-28000-access-denied-for-user-rootlocalhost
 
 
 # --- for all ---
