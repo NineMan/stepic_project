@@ -1,5 +1,9 @@
-<html>                                              
-<body>
+<!-- templates/main_page.html -->
+<html>
+    <head>
+        <title>NEL's Q-A</title>
+    </head>
+    <body>
 	{% for question in questions %}
 		<h1>{{question.title}}</h1>
 		<a href="/question/{{question.id}}/">Reference</a>
@@ -16,5 +20,5 @@
 			</li>
 		{% endfor %}
 	</ul>
-</body>
-</html>   
+    </body>
+</html>

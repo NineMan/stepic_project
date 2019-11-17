@@ -1,6 +1,9 @@
 <!-- templates/question_page.html -->
 <html>
-<body>
+    <head>
+        <title>NEL's Q-A</title>
+    </head>
+    <body>
 	<h1>{{question.title}}</h1>
 	<p>{{question.text}}</p>
 	<h3>Answers:</h3>
@@ -9,5 +12,5 @@
 		<li><p>{{answer.text}}</p></li>
 	{% endfor %}
 	</ul>
-</body>
+    </body>
 </html>

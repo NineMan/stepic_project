@@ -1,19 +1,12 @@
-# # from django.shortcuts import render
-# from django.http import HttpResponse
-# 
-# def test(request, *args, **kwargs):
-#     return HttpResponse('OK')
-# 
-
-
-
 from django.core.paginator import Paginator, EmptyPage
 from django.http import HttpResponse
 from django.shortcuts import render
 from qa.models import *
 
+
 def test(request, *args, **kwargs):
 	return HttpResponse('OK')
+
 
 def main(request):
 	limit = 10
@@ -35,6 +28,7 @@ def main(request):
 		'page': page,
 	})
 
+
 def popular(request):
 	limit = 10
 	try:
@@ -53,6 +47,7 @@ def popular(request):
 		'paginator': paginator,
 		'page': page,
 	})
+
 
 def question(request, question_id):
 	try:
