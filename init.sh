@@ -29,8 +29,8 @@ gunicorn -c /home/box/web/etc/qa.py        ask.wsgi:application
 
 # --- for all ---
  sudo /etc/init.d/mysql restart
- mysql -uroot -e "DROP DATABASE ASK"
- mysql -uroot -e "DROP USER sa@localhost"
+ mysql -uroot -e "DROP DATABASE IF EXIST ASK"
+ mysql -uroot -e "DROP USER IF EXIST sa@localhost"
  mysql -uroot -e "CREATE DATABASE ASK"
  mysql -uroot -e "CREATE USER 'sa'@'localhost' IDENTIFIED BY 'sa'"
  mysql -uroot -e "GRANT ALL PRIVILEGES ON ASK.* TO 'sa'@'localhost'"
