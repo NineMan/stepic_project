@@ -9,15 +9,15 @@ sudo /etc/init.d/nginx restart
 
 # --- for stepic ---
 # sudo rm -r /etc/gunicorn.d/*
-# sudo ln -sf /home/box/web/etc/gunicorn.py   /etc/gunicorn.d/gunicorn.py
-# sudo ln -sf /home/box/web/etc/qa.py         /etc/gunicorn.d/qa.py
+# sudo ln -sf /home/box/web/etc/gunicorn-stepic.py   /etc/gunicorn.d/gunicorn.py
+# sudo ln -sf /home/box/web/etc/qa-stepic.py         /etc/gunicorn.d/qa.py
 # cd /home/box/web/ask
 # sudo gunicorn -b 0.0.0.0:8000 ask.wsgi:application
 # sudo /etc/init.d/gunicorn restart
 
 # --- for local ---
-gunicorn -c /home/box/web/etc/gunicorn1.py hello:application 
-gunicorn -c /home/box/web/etc/qa1.py       ask.wsgi:application
+gunicorn -c /home/box/web/etc/gunicorn.py  hello:application 
+gunicorn -c /home/box/web/etc/qa.py        ask.wsgi:application
 
 
 # setting for mysql
