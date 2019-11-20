@@ -1,14 +1,29 @@
 <!-- templates/main_page.html -->
+{% load static %}
 <html>
     <head>
         <title>NEL's Q-A</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="{% static 'css/qa.css' %}">
     </head>
     <body>
+        <div class="page-header">
+            <h1>
+                <a href="/">Mike Nel1 Question-Answer site</a>
+            </h1>
+        </div>
+ 
 	{% for question in questions %}
 		<h1>{{question.title}}</h1>
 		<a href="/question/{{question.id}}/">Reference</a>
 	{% endfor %}
-	<h4>Navigation:</h4>
+
+	<h4>
+                List of questions:
+        </h4>
+
 	<ul>
 		{% for p in paginator.page_range %}
 			<li>
