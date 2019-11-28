@@ -17,8 +17,13 @@ class Question(models.Model):
     rating = models.IntegerField(default=0)
     author = models.ForeignKey(User, related_name='question_author', on_delete=models.CASCADE)
     likes  = models.ManyToManyField(User, related_name='question_likes', blank=True)
+
     class Meta:
         db_table = "qa_questions" 
+        ordering = ('added_at',)
+
+    def __str__(self):
+        return self.title
     
 
 
@@ -27,6 +32,11 @@ class Answer(models.Model):
     added_at = models.DateTimeField(auto_now=True)
     question = models.ForeignKey(Question, on_delete = models.CASCADE)
     author = models.ForeignKey(User, related_name='answer_author', on_delete=models.CASCADE)
+
     class Meta:
         db_table = "qa_answers"
+
+    def __str__(self):
+        return self.text
+#        return 'Answer from ' + str(self.author) + ' on ' + str(self.question)
 

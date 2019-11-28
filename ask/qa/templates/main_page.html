@@ -15,6 +15,8 @@
             </h1>
         </div>
  
+		<h4>Last questions:</h4>
+
 		{% for question in questions %}
 			<h2>
 				<a href="/question/{{question.id}}/">{{question.title}}</a>
@@ -34,5 +36,8 @@
 				</li>
 			{% endfor %}
 		</ul>
+        <h4>
+            <a href="/popular">Popular questions >></a>
+        </h4>
     </body>
 </html>
