@@ -1,16 +1,38 @@
 <!-- templates/question_page.html -->
 <html>
+{% load static %}
+<html>                                              
     <head>
         <title>NEL's Q-A</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="{% static 'qa/css/qa.css' %}">
     </head>
+
     <body>
-	<h1>{{question.title}}</h1>
-	<p>{{question.text}}</p>
-	<h3>Answers:</h3>
-	<ul>
-	{% for answer in answers %}
-		<li><p>{{answer.text}}</p></li>
-	{% endfor %}
-	</ul>
+	    <div class="page-header">
+	        <h1>
+	            {{question.title}}
+	        </h1>
+	    </div>
+
+		<p>{{question.text}}</p>
+
+		<h3>Answers:</h3>
+
+		<ul>
+			{% for answer in answers %}
+				<li>
+					<p1>{{answer.text}}</p1>
+				</li>
+					<p2>- {{answer.author}}<p2>
+			{% endfor %}
+		</ul>
+
+		<h4>
+			<a href="/"> Main >> </a>
+		</h4>
     </body>
+
 </html>

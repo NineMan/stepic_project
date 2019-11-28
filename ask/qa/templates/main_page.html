@@ -11,29 +11,28 @@
     <body>
         <div class="page-header">
             <h1>
-                <a href="/">Mike Nel1 Question-Answer site</a>
+                <a href="/">Mike Nel Question-Answer site</a>
             </h1>
         </div>
  
-	{% for question in questions %}
-		<h1>{{question.title}}</h1>
-		<a href="/question/{{question.id}}/">Reference</a>
-	{% endfor %}
-
-	<h4>
-                List of questions:
-        </h4>
-
-	<ul>
-		{% for p in paginator.page_range %}
-			<li>
-			{% if p == page.number %}
-			<a href="{{paginator.baseurl}}{{p}}"><b>{{p}}</b></a>
-			{% else %}
-			<a href="{{paginator.baseurl}}{{p}}">{{p}}</a>
-			{% endif %}
-			</li>
+		{% for question in questions %}
+			<h2>
+				<a href="/question/{{question.id}}/">{{question.title}}</a>
+			</h2>
 		{% endfor %}
-	</ul>
+
+		<h4>List of questions:</h4>
+
+		<ul>
+			{% for p in paginator.page_range %}
+				<li>
+					{% if p == page.number %}
+						<a href="{{paginator.baseurl}}{{p}}"><b>{{p}}</b></a>
+					{% else %}
+						<a href="{{paginator.baseurl}}{{p}}">{{p}}</a>
+					{% endif %}
+				</li>
+			{% endfor %}
+		</ul>
     </body>
 </html>

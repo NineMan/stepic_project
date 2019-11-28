@@ -1,7 +1,14 @@
+
+{% load static %}
 <html>                                              
     <head>
-        <title>NEL's Q-A site</title>
+        <title>NEL's Q-A</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="{% static 'qa/css/qa.css' %}">
     </head>
+
     <body>
 	{% for question in questions %}
 		<h1>{{question.title}}</h1>
@@ -20,4 +27,5 @@
 		{% endfor %}
 	</ul>
     </body>
+
 </html>   
