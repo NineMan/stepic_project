@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 
 
 class QuestionManager(models.Manager):
@@ -24,7 +25,9 @@ class Question(models.Model):
 
     def __str__(self):
         return self.title
-    
+
+    def get_url(self):
+        return reverse('question', kwargs={'question_id': self.pk})
 
 
 class Answer(models.Model):
@@ -38,5 +41,4 @@ class Answer(models.Model):
 
     def __str__(self):
         return self.text
-#        return 'Answer from ' + str(self.author) + ' on ' + str(self.question)
 

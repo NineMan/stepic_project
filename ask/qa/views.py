@@ -1,7 +1,8 @@
 from django.core.paginator import Paginator, EmptyPage
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from qa.models import *
+from qa.forms import AskForm, AnswerForm
 
 
 def test(request, *args, **kwargs):
@@ -15,7 +16,7 @@ def main(request):
 	except ValueError:
 		page = 1
 	questions = Question.objects
-	questions = questions.order_by("-added_at")
+	questions = questions.order_by("added_at")            # here sorting on the main page
 	paginator = Paginator(questions, limit)
 	paginator.baseurl = "/?page="
 	try:
@@ -60,3 +61,23 @@ def question(request, question_id):
 		'question': q,
 		'answers': answers,
 	})
+
+
+def answer(request):
+	pass 
+
+
+def ask(request):
+    if request.method == 'POST':
+        form = AskForm(request.POST)
+        if form.is_valid():
+            form._user = request.user
+            question = form.save()
+            url = question.get_url()
+#	alternative (did not check):
+#			question = form.save()
+#			url = "/question/" + str(question.id) + "/"
+            return HttpResponseRedirect(url)
+    else:
+        form = AskForm()
+    return render(request, 'ask.html', {'form': form})
