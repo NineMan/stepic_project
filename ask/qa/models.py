@@ -42,3 +42,5 @@ class Answer(models.Model):
     def __str__(self):
         return self.text
 
+    def get_url(self):
+        return reverse('answer', kwargs={'answer_id': self.pk})
