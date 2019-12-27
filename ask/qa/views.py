@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator, EmptyPage
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from qa.models import *
 from qa.forms import AskForm, AnswerForm
 
@@ -51,15 +51,24 @@ def popular(request):
 
 
 def question(request, question_id):
-	try:
-		question_id = int(question_id)
-	except ValueError:
-		raise Http404
-	q = Question.objects.get(pk=question_id)
+
+	q = get_object_or_404(Question, id=question_id)
 	answers = Answer.objects.all().filter(question = q)
+
+	if request.method == 'POST':
+		form = AnswerForm(request.POST)
+		if form.is_valid():
+			answer = form.save(request.user)
+			url = q.get_url()
+#			url = '/question/' + str(question_id) + '/'
+			return HttpResponseRedirect(url)
+	else:
+		form = AnswerForm({'question': q})
+
 	return render(request, "question_page.html", {
 		'question': q,
 		'answers': answers,
+		'form': form,
 	})
 
 
@@ -70,9 +79,6 @@ def ask(request):
             form._user = request.user
             question = form.save()
             url = question.get_url()
-#	alternative (did not check):
-#			question = form.save()
-#			url = "/question/" + str(question.id) + "/"
             return HttpResponseRedirect(url)
     else:
         form = AskForm()
@@ -84,5 +90,12 @@ def answer(request):
 		form = AnswerForm(request.POST)
 		if form.is_valid():
 			answer = form.save()
-			url = answer.get_url()
+			q_id = answer.question_id
+			question = get_object_or_404(Question, pk=q_id)
+			url = question.get_url()
 			return HttpResponseRedirect(url)
+	else:
+		form = AnswerForm()
+	return render(request, 'question_page.html', {
+		'form': form
+	})

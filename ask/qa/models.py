@@ -27,7 +27,8 @@ class Question(models.Model):
         return self.title
 
     def get_url(self):
-        return reverse('question', kwargs={'question_id': self.pk})
+        return "/question/{}/".format(self.id)
+#       return reverse('question', kwargs={'question_id': self.pk})
 
 
 class Answer(models.Model):
@@ -41,6 +42,3 @@ class Answer(models.Model):
 
     def __str__(self):
         return self.text
-
-    def get_url(self):
-        return reverse('answer', kwargs={'answer_id': self.pk})

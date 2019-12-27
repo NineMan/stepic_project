@@ -44,11 +44,13 @@ class AskForm(forms.Form):
 #			self.cleaned_data['author_id'] = 1
 #		else:
 #			self.cleaned_data['author_id'] = self._user
-		self.cleaned_data ['author_id'] = '1'
-#		quest = Question(title=self.cleaned_data['title'], text=self.cleaned_data['text'])
-		quest = Question(**self.cleaned_data)
-		quest.save()
-		return quest
+
+#		self.cleaned_data ['author_id'] = '1'
+		self.cleaned_data ['author_id'] = self._user.id
+#		question = Question(title=self.cleaned_data['title'], text=self.cleaned_data['text'])
+		question = Question(**self.cleaned_data)
+		question.save()
+		return question
 
 
 
@@ -63,21 +65,30 @@ class AnswerForm(ModelForm):
 class AnswerForm(forms.Form):
 	"""docstring for AnswerForm"""
 
-	text = forms.CharField(widget=forms.Textarea)
-	question = forms.IntegerField(widget = forms.HiddenInput)
+	text = forms.CharField(widget=forms.Textarea(attrs={'rows':'2'}), help_text='My answer')
+#	question = forms.IntegerField(widget = forms.HiddenInput)
+#	question = forms.IntegerField()
+	question = forms.ModelChoiceField(queryset=Question.objects.all())
 
-	def clean_text(self) :
-		text = self.cleaned_data['text']
-		return text
-
-	def clean_question(self) :
-		try :
-			quest_id = int(self.cleaned_data['question'])
-		except ValueError :
-			raise forms.ValidationError('fail input')
-		return quest_id
+#	def clean_text(self) :
+#		text = self.cleaned_data['text']
+#		return text
+#
+#	def clean_question(self) :
+#		try :
+#			quest_id = int(self.cleaned_data['question'])
+#		except ValueError :
+#			raise forms.ValidationError('fail input')
+#		return quest_id
 
 	def save(self) :
-		answer = Answer(text=self.text, question=self.question)
+#		self.cleaned_data['author'] = self._user
+#		answer = Answer(text=self.cleaned_data['text'], question=self.cleaned_data['question'], )
+#		answer.save()
+#		return answer
+
+		answer = Answer(**self.cleaned_data)
+#		answer.author_id = self._user.id
+		answer.author_id = '1' # self._user.id
 		answer.save()
 		return answer
