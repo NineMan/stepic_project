@@ -2,7 +2,9 @@ from django.core.paginator import Paginator, EmptyPage
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from qa.models import *
-from qa.forms import AskForm, AnswerForm
+from qa.forms import AskForm, AnswerForm, SignupForm, LoginForm
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as auth_login
 
 
 def test(request, *args, **kwargs):
@@ -99,3 +101,31 @@ def answer(request):
 	return render(request, 'question_page.html', {
 		'form': form
 	})
+
+
+def signup(request):
+	if request.method == "POST":
+		print('1')
+		form = SignupForm(request.POST)
+		if form.is_valid():
+			user = form.save()
+			user = authenticate(username = user.username, password = request.POST['password'])	
+			auth_login(request, user)
+			return HttpResponseRedirect('/')
+	else:
+		print('2')
+		form = SignupForm()
+	return render(request, 'signup.html', {'form': form})
+
+
+def login(request):
+	if request.method == 'POST':
+		form = LoginForm(request.POST)
+		if form.is_valid():
+			user = form.save()
+			if user:
+				auth_login(request, user)
+				return HttpResponseRedirect('/')
+	else:
+		form = LoginForm()
+	return render(request, 'login.html', {'form' : form})

@@ -1,0 +1,17 @@
+<html>
+	<body>
+	
+	<form method="post" action="/login/">
+		{% csrf_token %}
+		<fieldset>
+		{% for field in form %}
+			<label>{{field.label}}</label>
+			<div>{{field}}</div>
+		{% endfor %}
+		</fieldset>
+		<div>
+			<button type="submit">Save</button>
+		</div>
+	</form>
+	</body>
+</html>

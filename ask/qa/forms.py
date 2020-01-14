@@ -1,6 +1,7 @@
 from django import forms
 # from django.forms import ModelForm
 
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 
@@ -92,3 +93,49 @@ class AnswerForm(forms.Form):
 		answer.author_id = '1' # self._user.id
 		answer.save()
 		return answer
+
+
+class SignupForm(forms.Form):
+	username = forms.CharField()
+	password = forms.CharField()
+	email = forms.EmailField()
+
+	def clean_username(self):
+		return self.cleaned_data['username']
+
+	def clean_password(self):
+		return self.cleaned_data['password']
+
+	def clean_email(self):
+		return self.cleaned_data['email']
+
+	def clean(self):
+		return self.cleaned_data
+
+	def save(self):
+		user = User.objects.create_user(self.cleaned_data['username'], self.cleaned_data['password'])
+		user.email = self.cleaned_data['email']
+		user.set_password(self.cleaned_data['password'])
+		user.save()
+		return user
+
+
+class LoginForm(forms.Form):
+	username = forms.CharField()
+	password = forms.CharField()
+
+	def clean_username(self):
+		return self.cleaned_data['username']
+
+	def clean_password(self):
+		return self.cleaned_data['password']
+
+	def clean(self):
+		return self.cleaned_data
+
+	def save(self):
+		user = authenticate(username = self.cleaned_data['username'], password = self.cleaned_data['password'])
+		if user:
+			return user
+		else:
+			raise forms.ValidationError('invalid username/password')
